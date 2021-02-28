@@ -4,7 +4,7 @@
 # Добавляем prerender в blazor WebAssembly
 ## Основанно на инструкции [microsoft](https://docs.microsoft.com/ru-ru/aspnet/core/blazor/components/prerendering-and-integration?view=aspnetcore-5.0&pivots=webassembly)
 1. Добавьте файл Pages/_Host.cshtml (Смотри подробнее в инструкции [microsoft](https://docs.microsoft.com/ru-ru/aspnet/core/blazor/security/webassembly/additional-scenarios?view=aspnetcore-5.0#support-prerendering-with-authentication))
-- Добавьте @page "_Host" в начало файла.
+- Добавьте @page "_Host" в начало файла (Если надо, что бы авторизация работала и на пререндере, то используйте @page "/").
 - Замените тег <div id="app">Loading...</div> следующим:
 ```razor
 <div id="app">
