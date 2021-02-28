@@ -121,7 +121,7 @@ endpoints.MapRazorPages()
     </NotAuthorized>
 </AuthorizeView>
 ```
-6. Замените содержимое /Shared/RedirectToLogin.razor в серверном проекте
+6. Замените содержимое /Shared/RedirectToLogin.razor в клиентском проекте
 ```razor
 @inject NavigationManager Navigation
 @code{
