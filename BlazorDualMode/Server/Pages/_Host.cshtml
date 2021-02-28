@@ -1,0 +1,63 @@
+﻿@page "/"
+@using BlazorDualMode.Client
+@using BlazorDualMode.Server.Controllers 
+@namespace BlazorDualMode.Server.Pages
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@{
+
+    var isServerSideBlazor = BlazorModeController.IsServerSideBlazor(HttpContext);
+    Layout = null;
+}
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <title>BlazorDualMode</title>
+    <base href="/" />
+    <link href="css/bootstrap/bootstrap.min.css" rel="stylesheet" />
+    <link href="css/app.css" rel="stylesheet" />
+    <link href="BlazorDualMode.Client.styles.css" rel="stylesheet" />
+</head>
+
+<body>
+    <div id="app">
+        @if (!isServerSideBlazor)
+        {
+            <component type="typeof(App)" render-mode="ServerPrerendered" />
+        }
+        else
+        {
+            @if (!HttpContext.Request.Path.StartsWithSegments("/authentication"))
+            {
+                <component type="typeof(App)" render-mode="WebAssemblyPrerendered" />
+            }
+            else
+            {
+                <text>Loading...</text>
+            }
+        }
+    </div>
+    <div id="blazor-error-ui">
+        <environment include="Staging,Production">
+            An error has occurred. This application may no longer respond until reloaded.
+        </environment>
+        <environment include="Development">
+            An unhandled exception has occurred. See browser dev tools for details.
+        </environment>
+        <a href="" class="reload">Reload</a>
+        <a class="dismiss">🗙</a>
+    </div>
+    @if (!isServerSideBlazor)
+    {
+        <script src="_framework/blazor.server.js"></script>
+    }
+    else
+    {
+        <script src="_content/Microsoft.AspNetCore.Components.WebAssembly.Authentication/AuthenticationService.js"></script>
+        <script src="_framework/blazor.webassembly.js"></script>
+    }
+</body>
+
+</html>

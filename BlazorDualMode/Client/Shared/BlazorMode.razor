@@ -1,0 +1,22 @@
+﻿@using System.Web;
+@using Microsoft.AspNetCore.Components;
+@inject NavigationManager navigationManager
+
+<select class="form-select" @onchange="ChangeMode">
+    <option>--Select--</option>
+    <option value="true">WebAssembly</option>
+    <option value="false">ServerSide</option>
+</select>
+
+@code {
+    private void ChangeMode(ChangeEventArgs eventArgs)
+    {
+        var switchUrl = GetModeChangeUrl(bool.Parse(eventArgs.Value.ToString()), navigationManager.Uri);
+        navigationManager.NavigateTo(switchUrl, true);
+    }
+    private string GetModeChangeUrl(bool isServerSideBlazor, string redirectTo = "/")
+    {
+        var isSsbString = isServerSideBlazor.ToString().ToLowerInvariant();
+        return $"/_blazorMode/{isSsbString}?redirectTo={HttpUtility.UrlEncode(redirectTo)}";
+    }
+}

@@ -1,3 +1,4 @@
+using BlazorDualMode.Shared;
 using Microsoft.AspNetCore.Components.WebAssembly.Authentication;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -16,7 +17,6 @@ namespace BlazorDualMode.Client
         public static async Task Main(string[] args)
         {
             var builder = WebAssemblyHostBuilder.CreateDefault(args);
-            builder.RootComponents.Add<App>("#app");
 
             builder.Services.AddHttpClient("BlazorDualMode.ServerAPI", client => client.BaseAddress = new Uri(builder.HostEnvironment.BaseAddress))
                 .AddHttpMessageHandler<BaseAddressAuthorizationMessageHandler>();
@@ -25,6 +25,7 @@ namespace BlazorDualMode.Client
             builder.Services.AddScoped(sp => sp.GetRequiredService<IHttpClientFactory>().CreateClient("BlazorDualMode.ServerAPI"));
 
             builder.Services.AddApiAuthorization();
+            builder.Services.AddScoped<IWeatherForecastRepository, WeatherForecastRepository>();
 
             await builder.Build().RunAsync();
         }
