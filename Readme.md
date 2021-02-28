@@ -188,7 +188,7 @@ public class WeatherForecastController : ControllerBase
     }
 }
 ```
-5. Добавляем WeatherForecastRepository в BlazorDualMode
+5. Добавляем WeatherForecastRepository в клиентский проект
 ```C#
 public class WeatherForecastRepository : IWeatherForecastRepository
 {
@@ -259,7 +259,7 @@ else
     }
 }
 ```
-#Добавляем переключатель между архитектурами
+# Добавляем переключатель между архитектурами
 1. Добавляем контроллер BlazorModeController.cs в /Contollers в серверном проекте
 ```C#
 [Route("_blazorMode")]
